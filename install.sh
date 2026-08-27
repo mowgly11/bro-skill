@@ -36,7 +36,8 @@ INSTALLED=()
 
 install_skill() { # $1 = skills root
   mkdir -p "$1/bro"
-  cp "$SKILL" "$1/bro/SKILL.md"
+  # not cp: on the curl | bash path $SKILL is a mktemp file (0600) and that mode rides along
+  install -m 644 "$SKILL" "$1/bro/SKILL.md"
 }
 
 write_cmd() { # $1 = target file
