@@ -61,6 +61,15 @@ if want claude "$HOME/.claude" claude; then
   INSTALLED+=("Claude Code    → ~/.claude/skills/bro/ + /bro command")
 fi
 
+# ── Cursor ────────────────────────────────────────────────────
+# Always install into ~/.cursor/skills (mkdir -p). Cursor *also* reads
+# ~/.codex/skills and ~/.claude/skills, but those dirs only exist if you
+# already use Codex/Claude — Cursor-only users will not have them.
+if want cursor "$HOME/.cursor" cursor; then
+  install_skill "$HOME/.cursor/skills"
+  INSTALLED+=("Cursor         → ~/.cursor/skills/bro/SKILL.md")
+fi
+
 # ── OpenAI Codex ──────────────────────────────────────────────
 if want codex "$HOME/.codex" codex; then
   install_skill "$HOME/.codex/skills"
