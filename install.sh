@@ -79,7 +79,10 @@ fi
 # Codex deprecated custom prompts (~/.codex/prompts) in 0.117.0; the skill is the entry point.
 if want codex "$HOME/.codex" codex; then
   install_skill "$HOME/.codex/skills"
-  rm -f "$HOME/.codex/prompts/bro.md"   # stale wrapper written by older versions of this installer
+  if [ -f "$HOME/.codex/prompts/bro.md" ]; then  # written by older versions of this installer; keep it in case the user edited it
+    mv -f "$HOME/.codex/prompts/bro.md" "$HOME/.codex/prompts/bro.md.bak"
+    echo "⚠  Moved stale ~/.codex/prompts/bro.md to bro.md.bak (Codex deprecated custom prompts)"
+  fi
   INSTALLED+=("Codex CLI      → ~/.codex/skills/bro/SKILL.md")
 fi
 

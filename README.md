@@ -34,7 +34,7 @@ Works with any agent that reads the Agent Skills format — and ships thin slash
 | **OpenAI Codex** | `~/.codex/skills/bro/SKILL.md` | skill (`$bro` mention or `/skills`) |
 | **opencode** | `~/.config/opencode/skills/bro/SKILL.md` | `~/.config/opencode/command(s)/bro.md` |
 
-The generated wrappers for Claude Code and opencode end with a `$ARGUMENTS` line, which both hosts expand to whatever you typed after `/bro`. Codex, Hermes, and Cursor read `SKILL.md` directly, where your message is already in context. Codex deprecated custom prompts in 0.117.0, so the installer no longer writes `~/.codex/prompts/bro.md` and removes a stale one if found.
+The generated wrappers for Claude Code and opencode end with a `$ARGUMENTS` line, which both hosts expand to whatever you typed after `/bro`. Codex, Hermes, and Cursor read `SKILL.md` directly, where your message is already in context. Codex deprecated custom prompts in 0.117.0, so the installer no longer writes `~/.codex/prompts/bro.md`. A stale one from an older install is moved aside to `bro.md.bak` rather than deleted, in case you edited it.
 
 Cursor also reads `~/.codex/skills/` and `~/.claude/skills/` (and the matching project folders) as a compatibility fallback. Don't rely on that — Cursor-only machines often have neither directory. The installer writes `~/.cursor/skills/bro/` whenever it detects Cursor, creating `~/.cursor/skills/` if needed (that folder is not there by default).
 
