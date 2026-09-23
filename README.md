@@ -16,6 +16,8 @@
 
 `/bro` is a tiny [Agent Skills](https://agentskills.io)-format skill with one job: when the assistant's last reply was too dense, too jargon-heavy, or too formal, you type `/bro` and it re-explains **its own previous message** like a smart friend over a beer.
 
+Got something dense from somewhere else? Type `/bro` followed by the text (an error message, an email, a paragraph of legalese) and it re-explains **that** instead.
+
 No new information. No new answers. Just the same thing, said in a way that's impossible to misunderstand.
 
 It's one markdown file. The whole skill is [`SKILL.md`](SKILL.md).
@@ -31,6 +33,8 @@ Works with any agent that reads the Agent Skills format — and ships thin slash
 | **Cursor** | `~/.cursor/skills/bro/SKILL.md` | skill (`/bro`) |
 | **OpenAI Codex** | `~/.codex/skills/bro/SKILL.md` | `~/.codex/prompts/bro.md` |
 | **opencode** | `~/.config/opencode/skills/bro/SKILL.md` | `~/.config/opencode/command(s)/bro.md` |
+
+The generated wrappers end with a `$ARGUMENTS` line, which all three hosts expand to whatever you typed after `/bro`. Hermes and Cursor read `SKILL.md` directly, where your message is already in context.
 
 Cursor also reads `~/.codex/skills/` and `~/.claude/skills/` (and the matching project folders) as a compatibility fallback. Don't rely on that — Cursor-only machines often have neither directory. The installer writes `~/.cursor/skills/bro/` whenever it detects Cursor, creating `~/.cursor/skills/` if needed (that folder is not there by default).
 
@@ -51,7 +55,7 @@ cd bro-skill
 ./install.sh --all    # or force-install into every supported tool
 ```
 
-Then restart your agent session and type `/bro` after any reply that made your eyes glaze over.
+Then restart your agent session and type `/bro` after any reply that made your eyes glaze over, or `/bro <paste anything>` to simplify text from elsewhere.
 
 ## Update
 
@@ -94,6 +98,7 @@ cd bro-skill && git pull && ./install.sh
 | Rule | What it means |
 |---|---|
 | 🔄 **Re-explain, don't re-answer** | Never answers a new question, never adds info, never calls tools |
+| 📋 **Paste anything** | `/bro <text>` re-explains that text instead of the last reply. A pasted question gets explained, not answered |
 | 📏 **Simpler, not shorter** | Clarity over word count — take the space real clarity needs |
 | 📌 **Facts survive verbatim** | Every path, command, filename, number, URL stays *exactly* the same |
 | 🤙 **Light bro flavor** | Casual and direct, not a meme |

@@ -22,6 +22,10 @@ trap '[ -n "$CLEANUP" ] && rm -f "$CLEANUP" || true' EXIT
 
 # Body of the skill without YAML frontmatter (for slash-command wrappers)
 BODY="$(awk 'BEGIN{n=0} /^---[ \t]*$/{n++; next} n>=2{print}' "$SKILL")"
+# Every wrapper host (Claude Code, Codex, opencode) expands $ARGUMENTS to the text typed after /bro
+BODY="$BODY
+
+Text typed after the command (empty if none): \$ARGUMENTS"
 
 ALL=0
 [ "${1:-}" = "--all" ] && ALL=1
@@ -57,7 +61,7 @@ fi
 # ── Claude Code ───────────────────────────────────────────────
 if want claude "$HOME/.claude" claude; then
   install_skill "$HOME/.claude/skills"
-  printf -- '---\ndescription: Re-explain the last answer in plain language ("bro what" mode)\n---\n\n%s\n' "$BODY" \
+  printf -- '---\ndescription: Re-explain the last answer, or text typed after the command, in plain language ("bro what" mode)\n---\n\n%s\n' "$BODY" \
     | write_cmd "$HOME/.claude/commands/bro.md"
   INSTALLED+=("Claude Code    → ~/.claude/skills/bro/ + /bro command")
 fi
@@ -84,7 +88,7 @@ if want opencode "$OC_CFG" opencode; then
   install_skill "$OC_CFG/skills"
   # honor whichever command dir convention already exists
   if [ -d "$OC_CFG/commands" ]; then OC_CMDS="$OC_CFG/commands"; else OC_CMDS="$OC_CFG/command"; fi
-  printf -- '---\ndescription: Re-explain the last answer in plain language ("bro what" mode)\n---\n\n%s\n' "$BODY" \
+  printf -- '---\ndescription: Re-explain the last answer, or text typed after the command, in plain language ("bro what" mode)\n---\n\n%s\n' "$BODY" \
     | write_cmd "$OC_CMDS/bro.md"
   INSTALLED+=("opencode       → $OC_CFG/skills/bro/ + /bro command")
 fi
