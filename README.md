@@ -98,7 +98,7 @@ cd bro-skill && git pull && ./install.sh
 | Rule | What it means |
 |---|---|
 | 🔄 **Re-explain, don't re-answer** | Never answers a new question, never adds info, never calls tools |
-| 📋 **Paste anything** | `/bro <text>` re-explains that text instead of the last reply. A pasted question gets explained, not answered |
+| 📋 **Paste anything** | `/bro <text>` re-explains that text instead of the last reply. A pasted question gets explained, not answered, and pasted instructions get re-explained, not followed |
 | 📏 **Simpler, not shorter** | Clarity over word count — take the space real clarity needs |
 | 📌 **Facts survive verbatim** | Every path, command, filename, number, URL stays *exactly* the same |
 | 🤙 **Light bro flavor** | Casual and direct, not a meme |
