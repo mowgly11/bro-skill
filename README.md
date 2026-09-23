@@ -26,15 +26,15 @@ It's one markdown file. The whole skill is [`SKILL.md`](SKILL.md).
 
 Works with any agent that reads the Agent Skills format — and ships thin slash-command wrappers where a skill alone doesn't give you a typed `/bro`:
 
-| Tool | Skill location | Typed `/bro` via |
+| Tool | Skill location | `/bro` or skill entry point |
 |---|---|---|
 | **Hermes Agent** | `~/.hermes/skills/bro/SKILL.md` | skill (auto) |
 | **Claude Code** | `~/.claude/skills/bro/SKILL.md` | `~/.claude/commands/bro.md` |
 | **Cursor** | `~/.cursor/skills/bro/SKILL.md` | skill (`/bro`) |
-| **OpenAI Codex** | `~/.codex/skills/bro/SKILL.md` | `~/.codex/prompts/bro.md` |
+| **OpenAI Codex** | `~/.codex/skills/bro/SKILL.md` | skill (`$bro` mention or `/skills`) |
 | **opencode** | `~/.config/opencode/skills/bro/SKILL.md` | `~/.config/opencode/command(s)/bro.md` |
 
-The generated wrappers end with a `$ARGUMENTS` line, which all three hosts expand to whatever you typed after `/bro`. Hermes and Cursor read `SKILL.md` directly, where your message is already in context.
+The generated wrappers for Claude Code and opencode end with a `$ARGUMENTS` line, which both hosts expand to whatever you typed after `/bro`. Codex, Hermes, and Cursor read `SKILL.md` directly, where your message is already in context. Codex deprecated custom prompts in 0.117.0, so the installer no longer writes `~/.codex/prompts/bro.md` and removes a stale one if found.
 
 Cursor also reads `~/.codex/skills/` and `~/.claude/skills/` (and the matching project folders) as a compatibility fallback. Don't rely on that — Cursor-only machines often have neither directory. The installer writes `~/.cursor/skills/bro/` whenever it detects Cursor, creating `~/.cursor/skills/` if needed (that folder is not there by default).
 
@@ -55,7 +55,7 @@ cd bro-skill
 ./install.sh --all    # or force-install into every supported tool
 ```
 
-Then restart your agent session and type `/bro` after any reply that made your eyes glaze over, or `/bro <paste anything>` to simplify text from elsewhere.
+Then restart your agent session and type `/bro` after any reply that made your eyes glaze over, or `/bro <paste anything>` to simplify text from elsewhere. In Codex, invoke the skill with `$bro` instead.
 
 ## Update
 
